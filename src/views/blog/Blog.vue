@@ -1,9 +1,15 @@
 <template>
   <h1>Blog Posts</h1>
-  <div v-for="item in blogPosts" :key="item.id">
-    <router-link :to="{ name: 'blogDetails', params: { id: item.id } }">
-      <h3>{{ item.title }}</h3>
-    </router-link>
+  <div v-if="blogPosts.lenght">
+    <!-- Only when blogPosts has elements insede (the fetch is ready) this will show -->
+    <div v-for="item in blogPosts" :key="item.id">
+      <router-link :to="{ name: 'blogDetails', params: { id: item.id } }">
+        <h3>{{ item.title }}</h3>
+      </router-link>
+    </div>
+  </div>
+  <div v-else>
+    <p>Loading...</p>
   </div>
 </template>
 
@@ -11,12 +17,14 @@
 export default {
   data() {
     return {
-      blogPosts: [
-        { title: "Blog Post 1", id: "1", detail: "lorem ipsum" },
-        { title: "Blog Post 2", id: "2", detail: "lorem ipsum" },
-        { title: "Blog Post 3", id: "3", detail: "lorem ipsum" },
-      ],
+      blogPosts: [],
     };
+  },
+  mounted() {
+    fetch("http://localhost:8000/blogs")
+      .then((res) => res.json())
+      .then((data) => (this.blogPosts = data)) // here we asign the data fetched to the blogPosts [] in data()
+      .catch((err) => console.log(err.message));
   },
 };
 </script>

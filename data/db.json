@@ -1,0 +1,7 @@
+{
+  "blogs": [
+    { "title": "Blog Post 1", "id": "1", "detail": "lorem ipsum" },
+    { "title": "Blog Post 2", "id": "2", "detail": "lorem ipsum" },
+    { "title": "Blog Post 3", "id": "3", "detail": "lorem ipsum" }
+  ]
+}
